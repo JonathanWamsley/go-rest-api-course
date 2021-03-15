@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/joho/godotenv"
+	"github.com/tutorialedge/production-ready-api/internal/comment"
 	"github.com/tutorialedge/production-ready-api/internal/database"
 	transportHTTP "github.com/tutorialedge/production-ready-api/internal/transport/http"
 )
@@ -17,13 +18,15 @@ func (app *App) Run() error {
 	fmt.Println("Setting Up Our APP")
 
 	var err error
-	_, err = database.NewDatabase()
+	db, err := database.NewDatabase()
 	if err != nil {
 		fmt.Println("Failed to set up database connection")
 		return err
 	}
 
-	handler := transportHTTP.NewHandler()
+	commentService := comment.NewService(db)
+
+	handler := transportHTTP.NewHandler(commentService)
 	handler.SetupRoutes()
 
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
