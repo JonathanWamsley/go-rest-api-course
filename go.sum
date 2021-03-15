@@ -1,0 +1,4 @@
+github.com/TutorialEdge/go-rest-api-course v0.0.0-20210206123738-a8401b97883e h1:VFhCxqFFKu/Q01Q+dga9vozzEyh5OVVA6ASml6awNqk=
+github.com/TutorialEdge/go-rest-api-course v0.0.0-20210206123738-a8401b97883e/go.mod h1:Q0W0hnMU2yYh4sWHR+Ly3RPXP+ulMsz3nZvjvIMvNwo=
+github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
