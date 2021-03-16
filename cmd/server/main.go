@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	"github.com/tutorialedge/production-ready-api/internal/comment"
 	"github.com/tutorialedge/production-ready-api/internal/database"
 	transportHTTP "github.com/tutorialedge/production-ready-api/internal/transport/http"
@@ -50,11 +50,11 @@ func main() {
 	}
 }
 
-func init() {
+// func init() {
 
-	err := godotenv.Load()
+// 	err := godotenv.Load()
 
-	if err != nil {
-		fmt.Println("Error loading env variables")
-	}
-}
+// 	if err != nil {
+// 		fmt.Println("Error loading env variables")
+// 	}
+// }

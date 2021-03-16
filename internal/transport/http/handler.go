@@ -19,7 +19,7 @@ type Handler struct {
 // Response - an object to store responses from our API
 type Response struct {
 	Message string
-	Error string
+	Error   string
 }
 
 // NewHandler - returns a pointer to a Handler
