@@ -23,6 +23,10 @@ func (app *App) Run() error {
 		fmt.Println("Failed to set up database connection")
 		return err
 	}
+	err = database.MigrateDB(db)
+	if err != nil {
+		return err
+	}
 
 	commentService := comment.NewService(db)
 

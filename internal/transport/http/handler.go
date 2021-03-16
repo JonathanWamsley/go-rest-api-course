@@ -27,8 +27,8 @@ func (h *Handler) SetupRoutes() {
 	fmt.Println("Setting Up Routes")
 	h.Router = mux.NewRouter()
 
-	h.Router.HandleFunc("/api/comment/{id}", h.PostComment).Methods(http.MethodPost)
-	h.Router.HandleFunc("/api/comment/{id}", h.GetAllComments).Methods(http.MethodGet)
+	h.Router.HandleFunc("/api/comment", h.PostComment).Methods(http.MethodPost)
+	h.Router.HandleFunc("/api/comment", h.GetAllComments).Methods(http.MethodGet)
 	h.Router.HandleFunc("/api/comment/{id}", h.GetComment).Methods(http.MethodGet)
 	h.Router.HandleFunc("/api/comment/{id}", h.DeleteComment).Methods(http.MethodDelete)
 	h.Router.HandleFunc("/api/comment/{id}", h.UpdateComment).Methods(http.MethodPut)
@@ -87,7 +87,7 @@ func (h *Handler) PostComment(w http.ResponseWriter, r *http.Request) {
 // UpdateComment - updates a comment by ID
 func (h *Handler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 	comment, err := h.Service.UpdateComment(1, comment.Comment{
-		Slug: "/",
+		Slug: "/new",
 	})
 	if err != nil {
 		fmt.Fprintf(w, "Error updating new comment")
