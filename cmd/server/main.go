@@ -1,26 +1,35 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
-	// "github.com/joho/godotenv"
+	"github.com/joho/godotenv"
 	"github.com/tutorialedge/production-ready-api/internal/comment"
 	"github.com/tutorialedge/production-ready-api/internal/database"
 	transportHTTP "github.com/tutorialedge/production-ready-api/internal/transport/http"
+
+	log "github.com/sirupsen/logrus"
 )
 
-// App - the struct which contains pointers to the database connection
-type App struct{}
+// App - contain application information
+type App struct {
+	Name    string
+	Version string
+}
 
 // Run - sets up our application
 func (app *App) Run() error {
-	fmt.Println("Setting Up Our APP")
+	log.SetFormatter(&log.JSONFormatter{})
+	log.WithFields(
+		log.Fields{
+			"AppName":    app.Name,
+			"AppVersion": app.Version,
+		}).Info("Setting up application")
 
 	var err error
 	db, err := database.NewDatabase()
 	if err != nil {
-		fmt.Println("Failed to set up database connection")
+		log.Error("Failed to set up database connection")
 		return err
 	}
 	err = database.MigrateDB(db)
@@ -34,7 +43,7 @@ func (app *App) Run() error {
 	handler.SetupRoutes()
 
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
-		fmt.Println("Failed to set up server")
+		log.Error("Failed to set up server")
 		return err
 	}
 
@@ -42,19 +51,22 @@ func (app *App) Run() error {
 }
 
 func main() {
-	fmt.Println("Go REST API Course")
-	app := App{}
+	app := App{
+		Name:    "Commenting Service",
+		Version: "1.0.0",
+	}
 	if err := app.Run(); err != nil {
-		fmt.Println("Error starting up our REST API")
-		fmt.Println(err)
+		log.Error("Error starting up our REST API")
+		log.Fatal(err)
 	}
 }
 
-// func init() {
+func init() {
 
-// 	err := godotenv.Load()
+	err := godotenv.Load()
 
-// 	if err != nil {
-// 		fmt.Println("Error loading env variables")
-// 	}
-// }
+	if err != nil {
+		log.Error("Error loading env variables")
+		log.Fatal(err)
+	}
+}

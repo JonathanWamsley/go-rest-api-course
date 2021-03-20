@@ -9,6 +9,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	BASE_URL = "http://localhost:8080"
+)
+
 func TestPostComment(t *testing.T) {
 	client := resty.New()
 	resp, err := client.R().
